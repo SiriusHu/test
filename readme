@@ -1,0 +1,12 @@
+ When  resolving  library  dependencies,  the dynamic linker first inspects each dependency string to see if it contains a slash (this can occur if a library pathname containing slashes was specified at link time).   If  a slash  is  found,  then  the  dependency  string  is interpreted as a (relative or absolute) pathname, and the library is loaded using that pathname.
+(3)直接引用所需的动态链接库.即:
+
+# cc -o ady ady.c libmy.so 
+#
+
+这里有问题，如果没有现实加载当前目录到/etc/ld.so.conf中去的，话这样直接编译后，运行程序会出现找不到库的问题，因为链接器没有检测到斜杠，就不会认为这是个目录
+
+必须cc -o ady ady.c ./libmy.so
+
+
+man ld.so for detail
